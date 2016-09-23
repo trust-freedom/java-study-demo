@@ -16,7 +16,7 @@ package concurrent.synchronized_;
        6: monitorexit             //会使对象的锁计数-1
        7: return    
  */
-public class SynchronizedDemo2 {
+public class SynchronizedDemo2_javap {
 	Object obj = new Object();
 	
 	public synchronized void insert1(){

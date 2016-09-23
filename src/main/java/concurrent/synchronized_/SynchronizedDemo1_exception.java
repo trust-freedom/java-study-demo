@@ -11,7 +11,7 @@ package concurrent.synchronized_;
  * 结论：
  * 对于synchronized的方法或者代码框，当有异常发生时，JVM会自动释放当前线程占用的锁
  */
-public class SynchronizedDemo1 {
+public class SynchronizedDemo1_exception {
 	
 	/**
 	 * 同步方法
@@ -41,7 +41,7 @@ public class SynchronizedDemo1 {
 	
 	
 	public static void main(String[] args) throws Exception{
-		final SynchronizedDemo1 demo = new SynchronizedDemo1();
+		final SynchronizedDemo1_exception demo = new SynchronizedDemo1_exception();
 		
 		new Thread(){
 			public void run() {
@@ -56,6 +56,5 @@ public class SynchronizedDemo1 {
 				demo.insert();
 			}
 		}.start();
-		
 	}
 }
