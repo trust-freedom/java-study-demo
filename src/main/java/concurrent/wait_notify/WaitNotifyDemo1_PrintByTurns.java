@@ -33,11 +33,13 @@ public class WaitNotifyDemo1_PrintByTurns {
 				try{
 					for(int i=1; i<=5; i++){
 						while(true){
+							//当前线程是不是可以运行的线程
 							if(threadNum == demo.runThreadNum){
 								break;
 							}
 							else{
 								//如果当前线程不是接下来要运行的线程，进入等待池
+								//如果线程1运行完，此时线程2、3都在等待获取锁，假设线程3先获取锁，而当前运行线程是2，就会wait()
 								demo.wait(); 
 							}
 						}
