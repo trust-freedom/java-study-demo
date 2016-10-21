@@ -1,5 +1,6 @@
 package basics.string;
 
+
 /**
  * 运行结果：
  * Hello World!
@@ -18,6 +19,17 @@ package basics.string;
  * sequence represented by the argument string.
  * 说明创建了一个新的字符串"Hello World!"，并使s2引用指向这个新字符串
  * 故再输出s1指向的字符串，还是原来的值
+ * 
+ * public String concat(String str) {
+ *     int otherLen = str.length();
+ *     if (otherLen == 0) {
+ *         return this;
+ *     }
+ *     int len = value.length;
+ *     char buf[] = Arrays.copyOf(value, len + otherLen);
+ *     str.getChars(buf, len);
+ *     return new String(buf, true);
+ * }
  * 
  * String的不可变性是字符串常量池实现的基础
  * String在创建时就计算了hashcode，且由于不可变性，hashcode不会改变，故很适合做Map的键
