@@ -7,9 +7,9 @@ package concurrent.threadlocal;
  * main : main
  * R-A => main : main
  * R-B => main : main
- * before - A : main
+ * before - A : main in subThread
  * after - A : A
- * before - B : main
+ * before - B : main in subThread
  * after - B : B
  * 
  * 结论：
@@ -20,14 +20,14 @@ package concurrent.threadlocal;
  * 自己分别设置为线程name后，再获取就不一样了
  * 
  * 实际上Thread类内部有两个 ThreadLocal.ThreadLocalMap，一个threadLocals，一个inheritableThreadLocals
- * InheritableThreadLocal集成了ThreadLocal，重写了getMap()和 createMap()方法
+ * InheritableThreadLocal继承了ThreadLocal，重写了getMap()和 createMap()方法
  * ThreadLocalMap getMap(Thread t) {
  *     return t.inheritableThreadLocals;
  * }
  * void createMap(Thread t, T firstValue) {
  *     t.inheritableThreadLocals = new ThreadLocalMap(this, firstValue);
  * }
- * 在new子线程时，会调用Thread类的init()方法，方法中如果发现parent.inheritableThreadLocals!=null
+ * 在new子线程时，会调用Thread类的init()方法，方法中如果发现parent.inheritableThreadLocals != null
  * 就会让当前线程的
  * this.inheritableThreadLocals =
  *               ThreadLocal.createInheritedMap(parent.inheritableThreadLocals);
@@ -36,10 +36,16 @@ package concurrent.threadlocal;
  *     return new ThreadLocalMap(parentMap);
  * }
  * 将父线程的inheritableThreadLocals复制了一份
- * 所以当子线程自己set InheritableThreadLocal后，从父线程集成的值就会被覆盖
+ * 所以当子线程自己set InheritableThreadLocal后，从父线程继承的值就会被覆盖
  */
 public class ThreadLocalDemo2_InheritableThreadLocal {
-	private static InheritableThreadLocal<String> threadLocal = new InheritableThreadLocal<String>();
+	private static InheritableThreadLocal<String> threadLocal = new InheritableThreadLocal<String>(){
+		//重写childValue()方法，在构造子类的inheritableThreadLocals Map时会为子类复制一个Map，在给value赋值时会调用childValue()，可以对继承的值做一定修改
+		@Override
+		protected String childValue(String parentValue) {
+			return parentValue + " in subThread";
+		}
+	};
 	 
     public static class MyRunnable implements Runnable {
         public MyRunnable(String name) {
