@@ -38,7 +38,7 @@ package concurrent.threadlocal;
  * 将父线程的inheritableThreadLocals复制了一份
  * 所以当子线程自己set InheritableThreadLocal后，从父线程继承的值就会被覆盖
  */
-public class ThreadLocalDemo2_InheritableThreadLocal {
+public class ThreadLocalDemo3_InheritableThreadLocal {
 	private static InheritableThreadLocal<String> threadLocal = new InheritableThreadLocal<String>(){
 		//重写childValue()方法，在构造子类的inheritableThreadLocals Map时会为子类复制一个Map，在给value赋值时会调用childValue()，可以对继承的值做一定修改
 		@Override

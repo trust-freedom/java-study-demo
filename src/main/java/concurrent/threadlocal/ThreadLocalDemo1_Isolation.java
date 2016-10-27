@@ -17,7 +17,7 @@ package concurrent.threadlocal;
  * 所以一个线程可以有多个ThreadLocal变量保存线程本地变量
  * 此例中
  */
-public class ThreadLocalDemo1 {
+public class ThreadLocalDemo1_Isolation {
 	ThreadLocal<Long> longLocal = new ThreadLocal<Long>();
     ThreadLocal<String> stringLocal = new ThreadLocal<String>();
  
@@ -37,7 +37,7 @@ public class ThreadLocalDemo1 {
     
     
     public static void main(String[] args) throws InterruptedException {
-        final ThreadLocalDemo1 demo = new ThreadLocalDemo1();
+        final ThreadLocalDemo1_Isolation demo = new ThreadLocalDemo1_Isolation();
          
         demo.set();//主线程设置线程变量
         System.out.println(demo.getLong());
