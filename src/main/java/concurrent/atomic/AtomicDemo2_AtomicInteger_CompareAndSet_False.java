@@ -24,7 +24,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 另一线程执行多次+1操作
  * 我只想表示，getAndIncrement()操作只能保证肯定会原子性的对AtomicInteger加一
  * 即两个线程分别加了1W次，最后的结果一定是2W，不会出现错误
- * 但不能保证每个线程每次操作肯定是1->2,2->3
+ * 但不能保证每个线程每次操作肯定是1->2,2->3（这是站在一个线程的角度，但在全局的角度，AtomicInteger是加一递增的）
  * 即使在compareAndSet()操作时，如果存在失败，说明已经有别的线程先+1，与预期不符
  * 所以当前线程如果是对 1 做getAndIncrement()，返回的不是旧值1，而是2
  * 可能这也是AtomicInteger的运算方法都会返回值的原因
