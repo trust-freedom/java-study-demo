@@ -1,4 +1,4 @@
-package basics.collection.map.weakhashmap;
+package basics.map.weakhashmap;
 
 import java.util.Map;
 import java.util.WeakHashMap;
